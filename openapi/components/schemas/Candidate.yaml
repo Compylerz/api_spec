@@ -1,0 +1,26 @@
+description: "Example of a user with basic (restricted) permissions. In total, there are 5 permission levels, but basic users can only use the first three."
+allOf:
+  - $ref: './User.yaml'
+  - type: object
+    properties:
+      userType:
+        type: string
+        enum:
+          - admin
+          - basic
+      program:
+        type: string
+        description: "The academic program the candidate is enrolled in."
+        example: "Computer Science"
+        enum:
+          - Computer Science
+          - Mathematics
+          - Physics
+      batch:
+        type: integer
+        format: int32
+        description: "The graduation year of the candidate."
+        example: 2023
+      
+    required:
+      - userType

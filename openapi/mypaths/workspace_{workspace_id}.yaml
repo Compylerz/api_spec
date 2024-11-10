@@ -1,0 +1,68 @@
+get:
+  tags:
+    - Workspace
+  summary: Get workspace by ID
+  description: "Retrieve an workspace by its unique ID."
+  operationId: getWorkspaceById
+  parameters:
+    - name: workspace_id
+      in: path
+      required: true
+      description: "ID of the workspace to retrieve."
+      schema:
+        type: integer
+  responses:
+    '200':
+      description: Workspace details.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Workspace'
+    '404':
+      description: Workspace not found.
+
+put:
+  tags:
+    - Workspace
+  summary: Update an workspace
+  description: "Update the details of an existing workspace."
+  operationId: updateWorkspace
+  parameters:
+    - name: workspace_id
+      in: path
+      required: true
+      description: "ID of the workspace to update."
+      schema:
+        type: integer
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '#/components/schemas/Workspace'
+  responses:
+    '200':
+      description: Successfully updated the workspace.
+    '400':
+      description: Invalid input.
+    '404':
+      description: Workspace not found.
+
+delete:
+  tags:
+    - Workspace
+  summary: Delete an workspace
+  description: "Remove an workspace from the database by its ID."
+  operationId: deleteWorkspace
+  parameters:
+    - name: workspace_id
+      in: path
+      required: true
+      description: "ID of the workspace to delete."
+      schema:
+        type: integer
+  responses:
+    '204':
+      description: Successfully deleted the workspace.
+    '404':
+      description: Workspace not found.

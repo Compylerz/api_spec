@@ -1,0 +1,121 @@
+openapi: 3.1.0
+info:
+  title: CompylerZ Application API
+  version: 1.0.0
+  description: |
+    This API enables application management functionality similar to a competitive programming platform.
+    It includes endpoints for authentication, member and workspace management, problem/testcase import/export, and class management.
+servers:
+  - url: https://api.example.com/v1
+    description: Main API server
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    
+    Workspace:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        address:
+          type: string
+        description:
+          type: string
+          
+    Class:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        students:
+          type: array
+          items:
+            type: string  # Student IDs
+
+security:
+  - BearerAuth: []
+
+paths:
+  '/signup/{org_id}':
+    $ref: 'mypaths/signup_{org_id}.yaml'
+  '/user/list':
+    $ref: 'mypaths/user-status.yaml'
+  '/auth/login':
+    $ref: 'mypaths/auth_login.yaml'
+  '/users/{user_id}':
+    $ref: 'mypaths/users_{user_id}.yaml'
+    
+
+  /auth/logout:
+    $ref: 'mypaths/auth_logout.yaml'
+
+
+  /workspaces/{workspace_id}:
+    $ref: 'mypaths/workspace_{workspace_id}.yaml'
+
+  /classes:
+    post:
+      summary: Create a class
+      description: Allows teachers to create a new class.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Class'
+      responses:
+        '201':
+          description: Class created
+
+  /classes/{classId}/students:
+    post:
+      summary: Add students to class
+      description: Add one or multiple students to a specific class.
+      parameters:
+        - name: classId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string  # List of student IDs
+      responses:
+        '200':
+          description: Students added to class
+
+    delete:
+      summary: Remove students from class
+      description: Remove one or multiple students from a specific class.
+      parameters:
+        - name: classId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string  # List of student IDs
+      responses:
+        '204':
+          description: Students removed from class

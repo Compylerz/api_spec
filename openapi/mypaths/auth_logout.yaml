@@ -1,0 +1,8 @@
+post:
+  tags:
+    - User
+  summary: User logout
+  description: Logs the user out by invalidating the token.
+  responses:
+    '204':
+      description: Successful logout

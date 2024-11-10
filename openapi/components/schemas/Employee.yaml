@@ -1,0 +1,22 @@
+description: "Example of a user profile with admin permissions. This type of user is also referred to as an **administrator**."
+allOf:
+  - $ref: './User.yaml'
+  - type: object
+    properties:
+      userType:
+        type: string
+        enum:
+          - admin
+          - basic
+      employeeType:
+        type: string
+        description: "One or more departments which the admin user controls."
+        default: all
+        example: superadmin
+        enum:
+          - superadmin
+          - admin
+          - instructor
+    required:
+      - adminDept
+      - userType

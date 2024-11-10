@@ -1,0 +1,18 @@
+type: object
+properties:
+  roleId:
+    type: integer
+    format: int32
+    description: "Identifier of the role assigned to the user."
+    example: 1
+  roleName:
+    type: string
+    description: "Name of the role assigned to the user."
+    example: "Student"
+  description:
+    type: string
+    description: "Description of the role."
+    example: "A basic user with limited access."
+required:
+  - roleId
+  - roleName

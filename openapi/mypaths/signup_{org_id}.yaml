@@ -1,0 +1,35 @@
+post:
+  tags:
+    - User
+  summary: Sign up
+  description: "This operation creates a new user profile. Only administrators can create user profiles."
+  security: [] # override global security
+  operationId: createUser
+  responses:
+    '200':
+      description: Account created successfully
+    '405':
+      description: Invalid input
+      $ref: ../components/responses/Problem.yaml
+  
+  requestBody:
+    content:
+        application/json:
+          schema:
+            discriminator:
+              propertyName: userType
+              mapping:
+                admin: '../components/schemas/Employee.yaml'
+                basic: '../components/schemas/Candidate.yaml'
+            anyOf:
+              - $ref: '../components/schemas/Employee.yaml'
+              - $ref: '../components/schemas/Candidate.yaml'
+        application/xml:
+          schema:
+            type: object
+            properties:
+                name: 
+                  type: string
+                  description: Example description
+    description: "User profile to be added to the database."
+    required: true
