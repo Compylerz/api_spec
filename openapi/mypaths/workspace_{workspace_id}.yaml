@@ -17,7 +17,7 @@ get:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Workspace'
+            $ref: '../components/schemas/Workspace.yaml'
     '404':
       description: Workspace not found.
 
@@ -39,7 +39,7 @@ put:
     content:
       application/json:
         schema:
-          $ref: '#/components/schemas/Workspace'
+          $ref: '../components/schemas/Workspace.yaml'
   responses:
     '200':
       description: Successfully updated the workspace.
